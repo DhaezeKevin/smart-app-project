@@ -4,7 +4,7 @@ import { Text, View, ImageBackground, Image, StatusBar } from 'react-native';
 //Import stylesheets
 import Img from '../styles/Img';
 import Container from '../styles/Container';
-import Font from '../styles/Font';
+import FontStyles from '../styles/FontStyles';
 
 //Images
 const backgroundImage = require('../assets/onyxia.jpg');
@@ -27,8 +27,12 @@ const Main = ({ navigation }) => {
 					text="Sign in"
 					onPress={() => navigation.navigate('Login')}
 				/>
-				<Text style={Font.ThemeTextSmall}> Or </Text>
-				<DefaultButton text="Create an account" inverted={true} />
+				<Text style={FontStyles.themeTextSmall}> Or </Text>
+				<DefaultButton
+					text="Create an account"
+					inverted={true}
+					onPress={() => navigation.navigate('Register')}
+				/>
 			</View>
 		</View>
 	);

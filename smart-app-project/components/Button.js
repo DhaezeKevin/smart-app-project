@@ -1,11 +1,10 @@
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Text, Image, ImageBackground } from 'react-native';
 
 //Import styles
 import buttonStyle from '../styles/components/Button';
-import buttonText from '../styles/Font';
 
-const defaultButton = (props) => {
+const DefaultButton = (props) => {
 	return (
 		<TouchableOpacity
 			style={[
@@ -18,10 +17,10 @@ const defaultButton = (props) => {
 		>
 			<Text
 				style={[
-					buttonText.buttonText,
+					buttonStyle.buttonText,
 					props.inverted
-						? buttonText.buttonTextInverted
-						: buttonText.buttonTextFull,
+						? buttonStyle.buttonTextInverted
+						: buttonStyle.buttonTextFull,
 				]}
 			>
 				{props.text}
@@ -30,4 +29,37 @@ const defaultButton = (props) => {
 	);
 };
 
-export default defaultButton;
+export const ImageButton = (props) => {
+	var image;
+	if (props.imageName == 'ragnaros') {
+		image = (
+			<ImageBackground
+				source={require('../assets/ragnaros.jpg')}
+				style={buttonStyle.imageButtonImage}
+				resizeMode="cover"
+				imageStyle={{ borderRadius: 5 }}
+			></ImageBackground>
+		);
+	} else {
+		image = (
+			<ImageBackground
+				source={require('../assets/onyxia.jpg')}
+				style={buttonStyle.imageButtonImage}
+				resizeMode="cover"
+				imageStyle={{ borderRadius: 5 }}
+			></ImageBackground>
+		);
+	}
+
+	return (
+		<TouchableOpacity
+			style={[buttonStyle.imageButton]}
+			onPress={props.onPress}
+		>
+			{image}
+			<Text style={[buttonStyle.imageButtonText]}>{props.text}</Text>
+		</TouchableOpacity>
+	);
+};
+
+export default DefaultButton;

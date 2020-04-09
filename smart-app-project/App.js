@@ -7,6 +7,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 //Import pages
 import MainScreen from './screens/Main';
 import LoginScreen from './screens/Login';
+import RegisterScreen from './screens/Register';
+import HomeScreen from './screens/Home';
 
 //Import font
 import * as Font from 'expo-font';
@@ -39,6 +41,8 @@ export default function App() {
 				<Stack.Navigator headerMode="none">
 					<Stack.Screen name="Main" component={MainScreen} />
 					<Stack.Screen name="Login" component={LoginScreen} />
+					<Stack.Screen name="Register" component={RegisterScreen} />
+					<Stack.Screen name="Home" component={HomeScreen} />
 				</Stack.Navigator>
 			</NavigationContainer>
 		);
@@ -52,11 +56,4 @@ export default function App() {
 	}
 }
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-});
+const styles = StyleSheet.create({});
