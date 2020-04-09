@@ -9,6 +9,7 @@ import MainScreen from './screens/Main';
 import LoginScreen from './screens/Login';
 import RegisterScreen from './screens/Register';
 import HomeScreen from './screens/Home';
+import ListScreen from './screens/List';
 
 //Import font
 import * as Font from 'expo-font';
@@ -43,6 +44,7 @@ export default function App() {
 					<Stack.Screen name="Login" component={LoginScreen} />
 					<Stack.Screen name="Register" component={RegisterScreen} />
 					<Stack.Screen name="Home" component={HomeScreen} />
+					<Stack.Screen name="List" component={ListScreen} />
 				</Stack.Navigator>
 			</NavigationContainer>
 		);

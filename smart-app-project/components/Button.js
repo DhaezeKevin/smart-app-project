@@ -3,6 +3,7 @@ import { TouchableOpacity, Text, Image, ImageBackground } from 'react-native';
 
 //Import styles
 import buttonStyle from '../styles/components/Button';
+import Shadow from '../styles/Shadow';
 
 const DefaultButton = (props) => {
 	return (
@@ -53,7 +54,7 @@ export const ImageButton = (props) => {
 
 	return (
 		<TouchableOpacity
-			style={[buttonStyle.imageButton]}
+			style={[buttonStyle.imageButton, Shadow.Shadow]}
 			onPress={props.onPress}
 		>
 			{image}

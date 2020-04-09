@@ -27,4 +27,7 @@ export default StyleSheet.create({
 		fontSize: 40,
 		lineHeight: 40,
 	},
+	titlePage: {
+		lineHeight: 40,
+	},
 });

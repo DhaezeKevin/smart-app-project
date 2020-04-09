@@ -17,7 +17,7 @@ import Border from '../styles/Border';
 //Components
 import { ImageButton } from '../components/Button';
 
-const Home = () => {
+const Home = ({ navigation }) => {
 	return (
 		<View style={[Container.Container, Container.ContainerDark]}>
 			<StatusBar barStyle="light-content" />
@@ -42,8 +42,16 @@ const Home = () => {
 				</View>
 			</View>
 			<View style={Flex.flexTwo}>
-				<ImageButton text="Dungeons" imageName="ragnaros" />
-				<ImageButton text="Raids" imageName="onyxia" />
+				<ImageButton
+					text="Dungeons"
+					imageName="ragnaros"
+					onPress={() => navigation.navigate('List')}
+				/>
+				<ImageButton
+					text="Raids"
+					imageName="onyxia"
+					onPress={() => navigation.navigate('List')}
+				/>
 			</View>
 		</View>
 	);
