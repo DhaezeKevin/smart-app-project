@@ -13,9 +13,9 @@ import Shadow from '../styles/Shadow';
 
 //Components
 import Card from '../components/Card';
-import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 
-const List = () => {
+const MasterList = ({ navigation }) => {
 	//State management
 	const [searchBarValue, setSearchBarValue] = useState('');
 
@@ -53,7 +53,7 @@ const List = () => {
 				/>
 			</View>
 			<ScrollView>
-				<Card />
+				<Card onPress={() => navigation.navigate('DetailsList')} />
 				<Card />
 				<Card />
 				<Card />
@@ -62,4 +62,4 @@ const List = () => {
 	);
 };
 
-export default List;
+export default MasterList;

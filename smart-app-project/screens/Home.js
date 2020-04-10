@@ -45,12 +45,12 @@ const Home = ({ navigation }) => {
 				<ImageButton
 					text="Dungeons"
 					imageName="ragnaros"
-					onPress={() => navigation.navigate('List')}
+					onPress={() => navigation.navigate('MasterList')}
 				/>
 				<ImageButton
 					text="Raids"
 					imageName="onyxia"
-					onPress={() => navigation.navigate('List')}
+					onPress={() => navigation.navigate('MasterList')}
 				/>
 			</View>
 		</View>

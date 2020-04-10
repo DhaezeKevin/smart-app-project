@@ -3,9 +3,12 @@ import { TouchableOpacity, Text, Image, View } from 'react-native';
 import CardStyle from '../styles/components/Card';
 import Shadow from '../styles/Shadow';
 
-const Card = () => {
+const Card = (props) => {
 	return (
-		<TouchableOpacity style={[CardStyle.cardContainer, Shadow.Shadow]}>
+		<TouchableOpacity
+			style={[CardStyle.cardContainer, Shadow.Shadow]}
+			onPress={props.onPress}
+		>
 			<Image
 				source={require('../assets/Dungeons/rfc/rfc.png')}
 				style={CardStyle.cardImage}

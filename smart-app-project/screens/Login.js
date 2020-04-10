@@ -77,9 +77,11 @@ const Login = ({ navigation }) => {
 						/>
 						<TextInput
 							style={Input.inputField}
-							placeholder="Email/Username"
+							placeholder="Email"
+							textContentType="emailAddress"
+							autoCompleteType="email"
+							keyboardType="email-address"
 							placeholderTextColor={Colors.themeColor}
-							textContentType="username"
 						></TextInput>
 					</View>
 					<View style={Input.inputFieldContainer}>
