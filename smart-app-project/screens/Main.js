@@ -15,7 +15,12 @@ import DefaultButton from '../components/Button';
 
 const Main = ({ navigation }) => {
 	return (
-		<View style={Container.bgImgContainer}>
+		<View
+			style={[
+				Container.bgImgContainer,
+				{ justifyContent: 'space-between' },
+			]}
+		>
 			<StatusBar barStyle="light-content" />
 			<ImageBackground
 				source={backgroundImage}

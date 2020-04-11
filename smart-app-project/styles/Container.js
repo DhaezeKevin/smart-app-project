@@ -16,17 +16,21 @@ export default StyleSheet.create({
 		flex: 1,
 		backgroundColor: colors.darker,
 		alignItems: 'center',
-		justifyContent: 'space-between',
+		justifyContent: 'flex-end',
 		padding: '5%',
 	},
 	bgImgBtnContainer: {
 		display: 'flex',
 		alignItems: 'center',
 		width: '100%',
+		marginTop: 10,
+		marginBottom: 10,
 	},
 	bgImgInputContainer: {
 		display: 'flex',
 		justifyContent: 'flex-start',
 		width: '100%',
+		marginTop: 10,
+		marginBottom: 10,
 	},
 });

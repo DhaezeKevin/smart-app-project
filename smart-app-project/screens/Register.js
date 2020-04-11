@@ -6,6 +6,7 @@ import {
 	Image,
 	StatusBar,
 	TextInput,
+	KeyboardAvoidingView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -52,82 +53,94 @@ const Register = () => {
 	};
 
 	return (
-		<View style={[Container.bgImgContainer]}>
-			<StatusBar barStyle="light-content" />
-			<ImageBackground
-				source={backgroundImage}
-				style={[Img.bgImage]}
-			></ImageBackground>
-			<Image source={logo} style={Img.logo} resizeMode="contain"></Image>
-			<View style={Container.bgImgInputContainer}>
-				<Text
-					style={[
-						FontStyles.title,
-						FontStyles.titleBig,
-						Border.themeBorderLeft,
-					]}
-				>
-					Register
-				</Text>
-				<View style={Input.inputFieldContainer}>
-					<Icon name="account" color={Colors.themeColor} size={24} />
-					<TextInput
-						style={Input.inputField}
-						placeholder="Email"
-						placeholderTextColor={Colors.themeColor}
-						textContentType="emailAddress"
-						autoCompleteType="email"
-						keyboardType="email-address"
-						onChangeText={(accountEmail) =>
-							setaccountEmail(accountEmail)
-						}
-						defaultValue={accountEmail}
-					></TextInput>
+		<KeyboardAvoidingView style={{ flex: 1 }}>
+			<View style={[Container.bgImgContainer]}>
+				<StatusBar barStyle="light-content" />
+				<ImageBackground
+					source={backgroundImage}
+					style={[Img.bgImage]}
+				></ImageBackground>
+				<Image
+					source={logo}
+					style={Img.logo}
+					resizeMode="contain"
+				></Image>
+				<View style={Container.bgImgInputContainer}>
+					<Text
+						style={[
+							FontStyles.title,
+							FontStyles.titleBig,
+							Border.themeBorderLeft,
+						]}
+					>
+						Register
+					</Text>
+					<View style={Input.inputFieldContainer}>
+						<Icon
+							name="account"
+							color={Colors.themeColor}
+							size={24}
+						/>
+						<TextInput
+							style={Input.inputField}
+							placeholder="Email"
+							placeholderTextColor={Colors.themeColor}
+							textContentType="emailAddress"
+							autoCompleteType="email"
+							keyboardType="email-address"
+							onChangeText={(accountEmail) =>
+								setaccountEmail(accountEmail)
+							}
+							defaultValue={accountEmail}
+						></TextInput>
+					</View>
+					<View style={Input.inputFieldContainer}>
+						<Icon name="lock" color={Colors.themeColor} size={24} />
+						<TextInput
+							style={Input.inputField}
+							placeholder="Password"
+							placeholderTextColor={Colors.themeColor}
+							textContentType="newPassword"
+							secureTextEntry={true}
+							onChangeText={(accountPassword) =>
+								setaccountPassword(accountPassword)
+							}
+							defaultValue={accountPassword}
+						></TextInput>
+					</View>
+					<View style={Input.inputFieldContainer}>
+						<Icon name="lock" color={Colors.themeColor} size={24} />
+						<TextInput
+							style={Input.inputField}
+							placeholder="Repeat password"
+							placeholderTextColor={Colors.themeColor}
+							textContentType="newPassword"
+							secureTextEntry={true}
+							onChangeText={(accountPasswordRepeat) =>
+								setaccountPasswordRepeat(accountPasswordRepeat)
+							}
+							defaultValue={accountPasswordRepeat}
+						></TextInput>
+					</View>
 				</View>
-				<View style={Input.inputFieldContainer}>
-					<Icon name="lock" color={Colors.themeColor} size={24} />
-					<TextInput
-						style={Input.inputField}
-						placeholder="Password"
-						placeholderTextColor={Colors.themeColor}
-						textContentType="newPassword"
-						secureTextEntry={true}
-						onChangeText={(accountPassword) =>
-							setaccountPassword(accountPassword)
-						}
-						defaultValue={accountPassword}
-					></TextInput>
+				<View style={Container.bgImgBtnContainer}>
+					<DefaultButton
+						text="Create account"
+						onPress={() => {
+							if (accountPassword == accountPasswordRepeat) {
+								RegisterAccount(accountEmail, accountPassword);
+							} else {
+								//Show passwords do not match to user as feedback
+								console.log('Passwords do not match!');
+							}
+						}}
+						// onPress={() => navigation.navigate('Login')}
+					/>
 				</View>
-				<View style={Input.inputFieldContainer}>
-					<Icon name="lock" color={Colors.themeColor} size={24} />
-					<TextInput
-						style={Input.inputField}
-						placeholder="Repeat password"
-						placeholderTextColor={Colors.themeColor}
-						textContentType="newPassword"
-						secureTextEntry={true}
-						onChangeText={(accountPasswordRepeat) =>
-							setaccountPasswordRepeat(accountPasswordRepeat)
-						}
-						defaultValue={accountPasswordRepeat}
-					></TextInput>
-				</View>
+				{/* View with flex: 1 to take up the remaining space for our keyboardview */}
+				<View style={{ flex: 1 }}></View>
 			</View>
-			<View style={Container.bgImgBtnContainer}>
-				<DefaultButton
-					text="Create account"
-					onPress={() => {
-						if (accountPassword == accountPasswordRepeat) {
-							RegisterAccount(accountEmail, accountPassword);
-						} else {
-							//Show passwords do not match to user as feedback
-							console.log('Passwords do not match!');
-						}
-					}}
-					// onPress={() => navigation.navigate('Login')}
-				/>
-			</View>
-		</View>
+		</KeyboardAvoidingView>
 	);
 };
 

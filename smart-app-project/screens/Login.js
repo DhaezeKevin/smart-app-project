@@ -112,6 +112,8 @@ const Login = ({ navigation }) => {
 						onPress={() => navigation.navigate('Register')}
 					/>
 				</View>
+				{/* View with flex: 1 to take up the remaining space for our keyboardview */}
+				<View style={{ flex: 1 }}></View>
 			</View>
 		);
 	} else {
