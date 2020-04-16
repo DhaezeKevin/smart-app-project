@@ -4,4 +4,6 @@ export default {
 	darker: '#232931',
 	darkest: '#000',
 	light: '#EEEEEE',
+	error: '#CC4E4E',
+	success: '#4ECC63',
 };

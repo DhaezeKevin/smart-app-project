@@ -21,4 +21,25 @@ export default StyleSheet.create({
 		paddingLeft: 10,
 		flex: 1,
 	},
+	inputValidationContainer: {
+		display: 'flex',
+		justifyContent: 'center',
+		position: 'absolute',
+		top: -35,
+		height: 25,
+		width: '100%',
+		paddingLeft: 10,
+		borderRadius: 5,
+		backgroundColor: colors.error,
+	},
+	inputValidationText: {
+		color: colors.light,
+		fontSize: 12,
+		lineHeight: 16,
+	},
+	inputValidationSvg: {
+		position: 'absolute',
+		top: 20,
+		left: 40,
+	},
 });

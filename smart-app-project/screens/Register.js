@@ -7,8 +7,10 @@ import {
 	StatusBar,
 	TextInput,
 	KeyboardAvoidingView,
+	Animated,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Svg, { Polygon } from 'react-native-svg';
 
 //Import stylesheets
 import Img from '../styles/Img';
@@ -29,27 +31,98 @@ import DefaultButton from '../components/Button';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import FontStyles from '../styles/FontStyles';
+import Flashmessage from '../components/Flashmessage';
 
 const Register = () => {
 	//State management
 	const [accountEmail, setaccountEmail] = useState('');
 	const [accountPassword, setaccountPassword] = useState('');
 	const [accountPasswordRepeat, setaccountPasswordRepeat] = useState('');
+	const [
+		accountPasswordValidationError,
+		setaccountPasswordValidationError,
+	] = useState(false);
+	const [
+		accountPasswordValidationErrorMessage,
+		setaccountPasswordValidationErrorMessage,
+	] = useState('');
+	const [
+		accountEmailValidationError,
+		setaccountEmailValidationError,
+	] = useState(false);
+	const [
+		accountEmailValidationErrorMessage,
+		setaccountEmailValidationErrorMessage,
+	] = useState('');
+	const [accountCreatedSuccess, setaccountCreatedSuccess] = useState(false);
+
+	//Animation state management
+	const [fadeAnim] = useState(new Animated.Value(0));
 
 	const RegisterAccount = async (email, password) => {
-		await firebase
-			.auth()
-			.createUserWithEmailAndPassword(accountEmail, accountPassword)
-			.then(console.log('Trying to create account'))
-			.catch(function (error) {
-				var errorCode = error.code;
-				var errorMessage = error.message;
+		if (accountPassword == accountPasswordRepeat) {
+			await firebase
+				.auth()
+				.createUserWithEmailAndPassword(email, password)
+				.then(function () {
+					//User registered successfully
+					console.log(fadeAnim);
+					setaccountCreatedSuccess(true);
+					Animated.timing(fadeAnim, {
+						toValue: 1,
+						duration: 3000,
+					}).start();
+					console.log(fadeAnim);
+				})
+				.catch(function (error) {
+					//There was an error while trying to register
+					var errorCode = error.code;
+					var errorMessage = error.message;
 
-				console.log(errorCode);
-				console.log(errorMessage);
+					switch (errorCode) {
+						case 'auth/weak-password':
+							//Thrown if the password is not strong enough.
+							console.log(errorCode);
+							console.log(errorMessage);
+							setaccountPasswordValidationError(true);
+							setaccountPasswordValidationErrorMessage(
+								'Password needs to be atleast 6 characters'
+							);
+							break;
 
-				//Show error on screen
-			});
+						case 'auth/invalid-email':
+							//Thrown if the email address is not valid.
+							console.log(errorCode);
+							console.log(errorMessage);
+							setaccountEmailValidationError(true);
+							setaccountEmailValidationErrorMessage(
+								'Invalid email address'
+							);
+							break;
+
+						case 'auth/email-already-in-use':
+							//Thrown if there already exists an account with the given email address.
+							console.log(errorCode);
+							console.log(errorMessage);
+							setaccountEmailValidationError(true);
+							setaccountEmailValidationErrorMessage(
+								'Email address already in use'
+							);
+							break;
+
+						default:
+							console.log(error);
+					}
+				});
+		} else {
+			setaccountPasswordValidationError(true);
+			setaccountPasswordValidationErrorMessage("Passwords didn't match");
+		}
+	};
+
+	const ResetState = () => {
+		setaccountEmailValidationError(false);
+		setaccountPasswordValidationError(false);
 	};
 
 	return (
@@ -76,6 +149,25 @@ const Register = () => {
 						Register
 					</Text>
 					<View style={Input.inputFieldContainer}>
+						{accountEmailValidationError && (
+							<View style={Input.inputValidationContainer}>
+								<Text style={Input.inputValidationText}>
+									{accountEmailValidationErrorMessage}
+								</Text>
+								<Svg
+									height="15"
+									width="15"
+									style={Input.inputValidationSvg}
+								>
+									<Polygon
+										points="1,1 7.5,14 14,1"
+										fill={Colors.error}
+										strokeWidth="1"
+										strokeLinejoin="round"
+									/>
+								</Svg>
+							</View>
+						)}
 						<Icon
 							name="account"
 							color={Colors.themeColor}
@@ -95,6 +187,25 @@ const Register = () => {
 						></TextInput>
 					</View>
 					<View style={Input.inputFieldContainer}>
+						{accountPasswordValidationError && (
+							<View style={Input.inputValidationContainer}>
+								<Text style={Input.inputValidationText}>
+									{accountPasswordValidationErrorMessage}
+								</Text>
+								<Svg
+									height="15"
+									width="15"
+									style={Input.inputValidationSvg}
+								>
+									<Polygon
+										points="1,1 7.5,14 14,1"
+										fill={Colors.error}
+										strokeWidth="1"
+										strokeLinejoin="round"
+									/>
+								</Svg>
+							</View>
+						)}
 						<Icon name="lock" color={Colors.themeColor} size={24} />
 						<TextInput
 							style={Input.inputField}
@@ -109,6 +220,25 @@ const Register = () => {
 						></TextInput>
 					</View>
 					<View style={Input.inputFieldContainer}>
+						{accountPasswordValidationError && (
+							<View style={Input.inputValidationContainer}>
+								<Text style={Input.inputValidationText}>
+									{accountPasswordValidationErrorMessage}
+								</Text>
+								<Svg
+									height="15"
+									width="15"
+									style={Input.inputValidationSvg}
+								>
+									<Polygon
+										points="1,1 7.5,14 14,1"
+										fill={Colors.error}
+										strokeWidth="1"
+										strokeLinejoin="round"
+									/>
+								</Svg>
+							</View>
+						)}
 						<Icon name="lock" color={Colors.themeColor} size={24} />
 						<TextInput
 							style={Input.inputField}
@@ -127,18 +257,21 @@ const Register = () => {
 					<DefaultButton
 						text="Create account"
 						onPress={() => {
-							if (accountPassword == accountPasswordRepeat) {
-								RegisterAccount(accountEmail, accountPassword);
-							} else {
-								//Show passwords do not match to user as feedback
-								console.log('Passwords do not match!');
-							}
+							ResetState();
+							RegisterAccount(accountEmail, accountPassword);
 						}}
 						// onPress={() => navigation.navigate('Login')}
 					/>
 				</View>
 				{/* View with flex: 1 to take up the remaining space for our keyboardview */}
 				<View style={{ flex: 1 }}></View>
+				<View></View>
+				{accountCreatedSuccess && (
+					<Flashmessage
+						Text="Account created succesfully!"
+						style={{ opacity: fadeAnim }}
+					/>
+				)}
 			</View>
 		</KeyboardAvoidingView>
 	);
