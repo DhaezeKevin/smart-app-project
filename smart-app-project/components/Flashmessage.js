@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, View, Animated } from 'react-native';
 import FlashmessageStyle from '../styles/components/Flashmessage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Shadow from '../styles/Shadow';
 import Colors from '../styles/Colors';
-import Animated from 'react-native-reanimated';
 
 const Flashmessage = (props) => {
 	return (
@@ -12,7 +11,21 @@ const Flashmessage = (props) => {
 			style={[
 				FlashmessageStyle.FlashmessageContainer,
 				Shadow.Shadow,
-				props.style,
+				{
+					opacity: props.fadeAnimation,
+					// transform: [
+					// 	{
+					// 		translateX: props.transformAnimation.interpolate({
+					// 			inputRange: [0, 100],
+					// 			outputRange: ['0%', '55%'],
+					// 		}),
+					// 	},
+					// ],
+					right: props.transformAnimation.interpolate({
+						inputRange: [0, 1],
+						outputRange: ['-55%', '-1%'],
+					}),
+				},
 			]}
 		>
 			<Icon

@@ -9,7 +9,6 @@ export default StyleSheet.create({
 		position: 'absolute',
 		flexDirection: 'row',
 		top: 20,
-		right: -10,
 		height: 50,
 		width: '55%',
 		backgroundColor: colors.success,

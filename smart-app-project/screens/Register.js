@@ -32,6 +32,7 @@ import * as firebase from 'firebase';
 import 'firebase/firestore';
 import FontStyles from '../styles/FontStyles';
 import Flashmessage from '../components/Flashmessage';
+import { Easing } from 'react-native-reanimated';
 
 const Register = () => {
 	//State management
@@ -58,20 +59,39 @@ const Register = () => {
 
 	//Animation state management
 	const [fadeAnim] = useState(new Animated.Value(0));
+	const [transformXAnim] = useState(new Animated.Value(0));
 
 	const RegisterAccount = async (email, password) => {
+		fadeAnim.setValue(0);
+		transformXAnim.setValue(0);
 		if (accountPassword == accountPasswordRepeat) {
 			await firebase
 				.auth()
 				.createUserWithEmailAndPassword(email, password)
 				.then(function () {
 					//User registered successfully
-					console.log(fadeAnim);
+					console.log('Trying to create user');
+					//Show success confirmation
 					setaccountCreatedSuccess(true);
-					Animated.timing(fadeAnim, {
-						toValue: 1,
-						duration: 3000,
-					}).start();
+					//Success animation
+					Animated.sequence([
+						Animated.parallel([
+							Animated.timing(fadeAnim, {
+								toValue: 1,
+								duration: 400,
+							}),
+							Animated.timing(transformXAnim, {
+								toValue: 1,
+								duration: 400,
+							}),
+						]),
+						Animated.delay(2000),
+						Animated.timing(transformXAnim, {
+							toValue: 0,
+							duration: 400,
+							easing: Easing.in(),
+						}),
+					]).start();
 					console.log(fadeAnim);
 				})
 				.catch(function (error) {
@@ -113,10 +133,19 @@ const Register = () => {
 						default:
 							console.log(error);
 					}
+					Animated.timing(fadeAnim, {
+						toValue: 1,
+						duration: 350,
+					}).start();
 				});
 		} else {
+			//If the passwords are not the same
 			setaccountPasswordValidationError(true);
 			setaccountPasswordValidationErrorMessage("Passwords didn't match");
+			Animated.timing(fadeAnim, {
+				toValue: 1,
+				duration: 350,
+			}).start();
 		}
 	};
 
@@ -150,7 +179,12 @@ const Register = () => {
 					</Text>
 					<View style={Input.inputFieldContainer}>
 						{accountEmailValidationError && (
-							<View style={Input.inputValidationContainer}>
+							<Animated.View
+								style={[
+									Input.inputValidationContainer,
+									{ opacity: fadeAnim },
+								]}
+							>
 								<Text style={Input.inputValidationText}>
 									{accountEmailValidationErrorMessage}
 								</Text>
@@ -166,7 +200,7 @@ const Register = () => {
 										strokeLinejoin="round"
 									/>
 								</Svg>
-							</View>
+							</Animated.View>
 						)}
 						<Icon
 							name="account"
@@ -188,7 +222,12 @@ const Register = () => {
 					</View>
 					<View style={Input.inputFieldContainer}>
 						{accountPasswordValidationError && (
-							<View style={Input.inputValidationContainer}>
+							<Animated.View
+								style={[
+									Input.inputValidationContainer,
+									{ opacity: fadeAnim },
+								]}
+							>
 								<Text style={Input.inputValidationText}>
 									{accountPasswordValidationErrorMessage}
 								</Text>
@@ -204,7 +243,7 @@ const Register = () => {
 										strokeLinejoin="round"
 									/>
 								</Svg>
-							</View>
+							</Animated.View>
 						)}
 						<Icon name="lock" color={Colors.themeColor} size={24} />
 						<TextInput
@@ -221,7 +260,12 @@ const Register = () => {
 					</View>
 					<View style={Input.inputFieldContainer}>
 						{accountPasswordValidationError && (
-							<View style={Input.inputValidationContainer}>
+							<Animated.View
+								style={[
+									Input.inputValidationContainer,
+									{ opacity: fadeAnim },
+								]}
+							>
 								<Text style={Input.inputValidationText}>
 									{accountPasswordValidationErrorMessage}
 								</Text>
@@ -237,7 +281,7 @@ const Register = () => {
 										strokeLinejoin="round"
 									/>
 								</Svg>
-							</View>
+							</Animated.View>
 						)}
 						<Icon name="lock" color={Colors.themeColor} size={24} />
 						<TextInput
@@ -269,7 +313,8 @@ const Register = () => {
 				{accountCreatedSuccess && (
 					<Flashmessage
 						Text="Account created succesfully!"
-						style={{ opacity: fadeAnim }}
+						fadeAnimation={fadeAnim}
+						transformAnimation={transformXAnim}
 					/>
 				)}
 			</View>
