@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Svg, { Polygon } from 'react-native-svg';
+import { Easing } from 'react-native-reanimated';
 
 //Import stylesheets
 import Img from '../styles/Img';
@@ -19,6 +20,7 @@ import Font from '../styles/FontStyles';
 import Border from '../styles/Border';
 import Input from '../styles/Input';
 import Colors from '../styles/Colors';
+import FontStyles from '../styles/FontStyles';
 
 //Images
 const backgroundImage = require('../assets/ragnaros.jpg');
@@ -26,13 +28,11 @@ const logo = require('../assets/wow-classic-logo.png');
 
 //Components
 import DefaultButton from '../components/Button';
+import Flashmessage from '../components/Flashmessage';
 
 //Import firebase
 import * as firebase from 'firebase';
 import 'firebase/firestore';
-import FontStyles from '../styles/FontStyles';
-import Flashmessage from '../components/Flashmessage';
-import { Easing } from 'react-native-reanimated';
 
 const Register = () => {
 	//State management
@@ -304,7 +304,6 @@ const Register = () => {
 							ResetState();
 							RegisterAccount(accountEmail, accountPassword);
 						}}
-						// onPress={() => navigation.navigate('Login')}
 					/>
 				</View>
 				{/* View with flex: 1 to take up the remaining space for our keyboardview */}

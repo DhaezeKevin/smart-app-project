@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
 	Text,
 	View,
@@ -17,7 +17,18 @@ import Border from '../styles/Border';
 //Components
 import { ImageButton } from '../components/Button';
 
+//Import firebase
+import * as firebase from 'firebase';
+import 'firebase/firestore';
+
 const Home = ({ navigation }) => {
+	const currentUser = firebase.auth().currentUser;
+
+	//If component is loaded
+	useEffect(() => {
+		console.log(currentUser);
+	}, []);
+
 	return (
 		<View style={[Container.Container, Container.ContainerDark]}>
 			<StatusBar barStyle="light-content" />
@@ -31,7 +42,9 @@ const Home = ({ navigation }) => {
 						]}
 					>
 						Welcome back {'\n'}
-						<Text style={FontStyles.boldText}>Kevin</Text>
+						<Text style={FontStyles.boldText}>
+							{currentUser.email}
+						</Text>
 					</Text>
 				</View>
 				<View style={[Flex.flexTwo, Flex.flexJustifyEnd]}>

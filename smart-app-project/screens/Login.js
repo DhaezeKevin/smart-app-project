@@ -6,8 +6,11 @@ import {
 	Image,
 	StatusBar,
 	TextInput,
+	Animated,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Svg, { Polygon } from 'react-native-svg';
+import { Easing } from 'react-native-reanimated';
 
 //Import expo fonts
 import * as Font from 'expo-font';
@@ -28,9 +31,31 @@ const logo = require('../assets/wow-classic-logo.png');
 import DefaultButton from '../components/Button';
 import { State } from 'react-native-gesture-handler';
 
+//Import firebase
+import * as firebase from 'firebase';
+import 'firebase/firestore';
+
 const Login = ({ navigation }) => {
 	//State management
 	const [iconLoaded, seticonLoaded] = useState(false);
+	const [accountEmail, setaccountEmail] = useState('');
+	const [accountPassword, setaccountPassword] = useState('');
+	const [
+		accountPasswordValidationError,
+		setaccountPasswordValidationError,
+	] = useState(false);
+	const [
+		accountPasswordValidationErrorMessage,
+		setaccountPasswordValidationErrorMessage,
+	] = useState('');
+	const [
+		accountEmailValidationError,
+		setaccountEmailValidationError,
+	] = useState(false);
+	const [
+		accountEmailValidationErrorMessage,
+		setaccountEmailValidationErrorMessage,
+	] = useState('');
 
 	//When icons are loaded
 	const loadedIcon = async () => {
@@ -44,7 +69,71 @@ const Login = ({ navigation }) => {
 	//If icons are loaded
 	useEffect(() => {
 		loadedIcon();
-	});
+	}, []);
+
+	//LoginFunction
+	const loginAccount = async () => {
+		await firebase
+			.auth()
+			.signInWithEmailAndPassword(accountEmail, accountPassword)
+			.then(function () {
+				//User signed in succesfully
+				console.log('Logged in succesfully!');
+				navigation.navigate('Home');
+			})
+			.catch(function (error) {
+				//There was an error
+				var errorCode = error.code;
+				var errorMessage = error.message;
+
+				console.log('Login failed 😭');
+				switch (errorCode) {
+					case 'auth/invalid-email':
+						//Thrown if the email address is not valid.
+						console.log(errorCode);
+						console.log(errorMessage);
+						setaccountEmailValidationError(true);
+						setaccountEmailValidationErrorMessage(
+							'Invalid email address'
+						);
+						break;
+					case 'auth/user-disabled':
+						//Thrown if the user corresponding to the given email has been disabled.
+						console.log(errorCode);
+						console.log(errorMessage);
+						setaccountEmailValidationError(true);
+						setaccountEmailValidationErrorMessage(
+							'This email address has been disabled'
+						);
+						break;
+					case 'auth/user-not-found':
+						//Thrown if there is no user corresponding to the given email.
+						console.log(errorCode);
+						console.log(errorMessage);
+						setaccountEmailValidationError(true);
+						setaccountEmailValidationErrorMessage(
+							'This email address does not exist'
+						);
+						break;
+					case 'auth/wrong-password':
+						//Thrown if the password is invalid for the given email, or the account corresponding to the email does not have a password set.
+						console.log(errorCode);
+						console.log(errorMessage);
+						setaccountPasswordValidationError(true);
+						setaccountPasswordValidationErrorMessage(
+							'Invalid password'
+						);
+						break;
+					default:
+						console.log(error);
+				}
+			});
+	};
+
+	const resetState = () => {
+		setaccountEmailValidationError(false);
+		setaccountPasswordValidationError(false);
+	};
 
 	if (iconLoaded) {
 		return (
@@ -70,6 +159,30 @@ const Login = ({ navigation }) => {
 						Sign in
 					</Text>
 					<View style={Input.inputFieldContainer}>
+						{accountEmailValidationError && (
+							<Animated.View
+								style={[
+									Input.inputValidationContainer,
+									// { opacity: fadeAnim },
+								]}
+							>
+								<Text style={Input.inputValidationText}>
+									{accountEmailValidationErrorMessage}
+								</Text>
+								<Svg
+									height="15"
+									width="15"
+									style={Input.inputValidationSvg}
+								>
+									<Polygon
+										points="1,1 7.5,14 14,1"
+										fill={Colors.error}
+										strokeWidth="1"
+										strokeLinejoin="round"
+									/>
+								</Svg>
+							</Animated.View>
+						)}
 						<MaterialCommunityIcons
 							name="account"
 							size={32}
@@ -78,13 +191,41 @@ const Login = ({ navigation }) => {
 						<TextInput
 							style={Input.inputField}
 							placeholder="Email"
+							placeholderTextColor={Colors.themeColor}
 							textContentType="emailAddress"
 							autoCompleteType="email"
 							keyboardType="email-address"
-							placeholderTextColor={Colors.themeColor}
+							onChangeText={(accountEmail) =>
+								setaccountEmail(accountEmail)
+							}
+							defaultValue={accountEmail}
 						></TextInput>
 					</View>
 					<View style={Input.inputFieldContainer}>
+						{accountPasswordValidationError && (
+							<Animated.View
+								style={[
+									Input.inputValidationContainer,
+									// { opacity: fadeAnim },
+								]}
+							>
+								<Text style={Input.inputValidationText}>
+									{accountPasswordValidationErrorMessage}
+								</Text>
+								<Svg
+									height="15"
+									width="15"
+									style={Input.inputValidationSvg}
+								>
+									<Polygon
+										points="1,1 7.5,14 14,1"
+										fill={Colors.error}
+										strokeWidth="1"
+										strokeLinejoin="round"
+									/>
+								</Svg>
+							</Animated.View>
+						)}
 						<MaterialCommunityIcons
 							name="lock"
 							size={32}
@@ -94,16 +235,22 @@ const Login = ({ navigation }) => {
 							style={Input.inputField}
 							placeholder="Password"
 							placeholderTextColor={Colors.themeColor}
-							textContentType="password"
+							textContentType="newPassword"
 							secureTextEntry={true}
-							inlineImageLeft={State.accountIcon}
+							onChangeText={(accountPassword) =>
+								setaccountPassword(accountPassword)
+							}
+							defaultValue={accountPassword}
 						></TextInput>
 					</View>
 				</View>
 				<View style={Container.bgImgBtnContainer}>
 					<DefaultButton
 						text="Sign in"
-						onPress={() => navigation.navigate('Home')}
+						onPress={() => {
+							resetState();
+							loginAccount();
+						}}
 					/>
 					<Text style={FontStyles.themeTextSmall}> Or </Text>
 					<DefaultButton
