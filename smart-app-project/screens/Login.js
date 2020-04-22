@@ -38,8 +38,10 @@ import 'firebase/firestore';
 const Login = ({ navigation }) => {
 	//State management
 	const [iconLoaded, seticonLoaded] = useState(false);
-	const [accountEmail, setaccountEmail] = useState('');
-	const [accountPassword, setaccountPassword] = useState('');
+
+	//JUST FOR TESTING PURPOSES CHANGE THIS BACK
+	const [accountEmail, setaccountEmail] = useState('test@test.com');
+	const [accountPassword, setaccountPassword] = useState('123456');
 	const [
 		accountPasswordValidationError,
 		setaccountPasswordValidationError,

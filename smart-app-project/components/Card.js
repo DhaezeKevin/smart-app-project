@@ -14,8 +14,8 @@ const Card = (props) => {
 				style={CardStyle.cardImage}
 			/>
 			<View style={CardStyle.cardText}>
-				<Text style={CardStyle.cardTextName}>Ragefire Chasm</Text>
-				<Text style={CardStyle.cardTextLevel}>Level 12-15</Text>
+				<Text style={CardStyle.cardTextName}>{props.name}</Text>
+				<Text style={CardStyle.cardTextLevel}>{props.level}</Text>
 			</View>
 		</TouchableOpacity>
 	);

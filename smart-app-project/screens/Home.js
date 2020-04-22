@@ -24,11 +24,6 @@ import 'firebase/firestore';
 const Home = ({ navigation }) => {
 	const currentUser = firebase.auth().currentUser;
 
-	//If component is loaded
-	useEffect(() => {
-		console.log(currentUser);
-	}, []);
-
 	return (
 		<View style={[Container.Container, Container.ContainerDark]}>
 			<StatusBar barStyle="light-content" />
@@ -58,12 +53,20 @@ const Home = ({ navigation }) => {
 				<ImageButton
 					text="Dungeons"
 					imageName="ragnaros"
-					onPress={() => navigation.navigate('MasterList')}
+					onPress={() =>
+						navigation.navigate('MasterList', {
+							difficultyType: 'Dungeons',
+						})
+					}
 				/>
 				<ImageButton
 					text="Raids"
 					imageName="onyxia"
-					onPress={() => navigation.navigate('MasterList')}
+					onPress={() =>
+						navigation.navigate('MasterList', {
+							difficultyType: 'Raids',
+						})
+					}
 				/>
 			</View>
 		</View>
