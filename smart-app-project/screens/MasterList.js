@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Image, StatusBar, TextInput } from 'react-native';
+import { Text, View, StatusBar } from 'react-native';
 import { SearchBar, Icon } from 'react-native-elements';
 
 //Import stylesheets
@@ -21,13 +21,22 @@ const MasterList = ({ route, navigation }) => {
 	const [searchBarValue, setSearchBarValue] = useState('');
 	const [dungeonRaidList, setdungeonRaidList] = useState([]);
 
+	//Route params
+	const { difficultyType } = route.params;
 	//Make a list of cards based on the data
 	const dungeonRaidListRender = dungeonRaidList.map(function (dungeonRaid) {
 		return (
 			<Card
-				onPress={() => navigation.navigate('DetailsList')}
+				onPress={() =>
+					navigation.navigate('DetailsList', {
+						dungeonRaid: dungeonRaid,
+						difficulty: difficultyType,
+					})
+				}
 				name={dungeonRaid.name}
 				level={dungeonRaid.level}
+				key={dungeonRaid.name}
+				image={dungeonRaid.image}
 			/>
 		);
 	});
@@ -36,21 +45,16 @@ const MasterList = ({ route, navigation }) => {
 		setSearchBarValue(search);
 	};
 
-	const { difficultyType } = route.params;
-
-	const ref = firestore().collection('Dungeons');
+	const ref = firestore().collection(difficultyType);
 
 	const getData = () => {
+		setdungeonRaidList([]);
 		ref.get().then(function (querySnapshot) {
 			querySnapshot.forEach(function (doc) {
-				console.log(doc.data());
 				setdungeonRaidList((dungeonRaidList) => [
 					...dungeonRaidList,
 					doc.data(),
 				]);
-				console.log(
-					'This is the new list:' + JSON.stringify(dungeonRaidList)
-				);
 			});
 		});
 	};
@@ -58,6 +62,7 @@ const MasterList = ({ route, navigation }) => {
 	//If component is loaded
 	useEffect(() => {
 		getData();
+		console.log(difficultyType);
 	}, []);
 
 	return (

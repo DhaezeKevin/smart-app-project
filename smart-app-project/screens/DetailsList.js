@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, Image, StatusBar, TextInput } from 'react-native';
 import { SearchBar, Icon } from 'react-native-elements';
 
@@ -14,14 +14,52 @@ import Shadow from '../styles/Shadow';
 //Components
 import Card from '../components/Card';
 import { ScrollView } from 'react-native-gesture-handler';
+import { firestore } from 'firebase';
 
-const DetailsList = () => {
+const DetailsList = ({ route, navigation }) => {
 	//State management
 	const [searchBarValue, setSearchBarValue] = useState('');
+	const [bossList, setbossList] = useState([]);
+
+	//Route params
+	const { dungeonRaid } = route.params;
+	const { difficulty } = route.params;
+
+	//Make a list of cards based on the data
+	const bossListRender = bossList.map(function (bossList) {
+		return (
+			<Card
+				name={bossList.name}
+				level={bossList.level}
+				key={bossList.name}
+				image={bossList.image}
+			/>
+		);
+	});
 
 	const updateSearch = (search) => {
 		setSearchBarValue(search);
 	};
+
+	const ref = firestore()
+		.collection(difficulty)
+		.doc(dungeonRaid.name)
+		.collection('Bosses');
+
+	const getData = () => {
+		setbossList([]);
+		ref.get().then(function (querySnapshot) {
+			querySnapshot.forEach(function (doc) {
+				console.log(doc.data());
+				setbossList((bossList) => [...bossList, doc.data()]);
+			});
+		});
+	};
+
+	//If component is loaded
+	useEffect(() => {
+		getData();
+	}, []);
 
 	return (
 		<View style={[Container.Container, Container.ContainerDark]}>
@@ -34,7 +72,7 @@ const DetailsList = () => {
 						Border.themeBorderLeft,
 					]}
 				>
-					Dungeons
+					Bosses for {dungeonRaid.name}
 				</Text>
 				<SearchBar
 					placeholder="Type Here..."
@@ -52,12 +90,7 @@ const DetailsList = () => {
 					}
 				/>
 			</View>
-			<ScrollView>
-				<Card />
-				<Card />
-				<Card />
-				<Card />
-			</ScrollView>
+			<ScrollView>{bossListRender}</ScrollView>
 		</View>
 	);
 };

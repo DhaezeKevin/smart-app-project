@@ -13,14 +13,6 @@ const Flashmessage = (props) => {
 				Shadow.Shadow,
 				{
 					opacity: props.fadeAnimation,
-					// transform: [
-					// 	{
-					// 		translateX: props.transformAnimation.interpolate({
-					// 			inputRange: [0, 100],
-					// 			outputRange: ['0%', '55%'],
-					// 		}),
-					// 	},
-					// ],
 					right: props.transformAnimation.interpolate({
 						inputRange: [0, 1],
 						outputRange: ['-55%', '-1%'],

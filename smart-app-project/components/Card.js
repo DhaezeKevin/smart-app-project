@@ -9,10 +9,7 @@ const Card = (props) => {
 			style={[CardStyle.cardContainer, Shadow.Shadow]}
 			onPress={props.onPress}
 		>
-			<Image
-				source={require('../assets/Dungeons/rfc/rfc.png')}
-				style={CardStyle.cardImage}
-			/>
+			<Image source={{ uri: props.image }} style={CardStyle.cardImage} />
 			<View style={CardStyle.cardText}>
 				<Text style={CardStyle.cardTextName}>{props.name}</Text>
 				<Text style={CardStyle.cardTextLevel}>{props.level}</Text>
