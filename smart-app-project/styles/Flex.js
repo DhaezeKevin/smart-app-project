@@ -17,7 +17,13 @@ export default StyleSheet.create({
 	flexAlignEnd: {
 		alignItems: 'flex-end',
 	},
+	flexAlignCenter: {
+		alignItems: 'center',
+	},
 	flexJustifyBetween: {
 		justifyContent: 'space-between',
+	},
+	flexDirectionRow: {
+		flexDirection: 'row',
 	},
 });

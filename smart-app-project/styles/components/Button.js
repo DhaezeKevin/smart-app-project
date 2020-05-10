@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import colors from '../Colors';
 
 export default StyleSheet.create({
+	//DEFAULT BUTTON
 	defaultButton: {
 		width: '100%',
 		height: 50,
@@ -19,15 +20,6 @@ export default StyleSheet.create({
 		borderWidth: 1,
 		borderColor: colors.themeColor,
 	},
-	imageButton: {
-		flex: 1,
-		borderRadius: 5,
-		display: 'flex',
-		justifyContent: 'flex-end',
-		alignItems: 'flex-start',
-		marginBottom: 8,
-		marginTop: 8,
-	},
 	buttonText: {
 		fontSize: 20,
 		fontFamily: 'AlegreyaSans',
@@ -37,6 +29,17 @@ export default StyleSheet.create({
 	},
 	buttonTextInverted: {
 		color: colors.themeColor,
+	},
+
+	//IMAGE BUTTON
+	imageButton: {
+		flex: 1,
+		borderRadius: 5,
+		display: 'flex',
+		justifyContent: 'flex-end',
+		alignItems: 'flex-start',
+		marginBottom: 8,
+		marginTop: 8,
 	},
 	imageButtonText: {
 		color: colors.themeColor,
@@ -53,5 +56,12 @@ export default StyleSheet.create({
 		left: 0,
 		right: 0,
 		bottom: 0,
+	},
+
+	//COLOR BUTTON
+	colorButton: {
+		width: 35,
+		height: 35,
+		borderRadius: 100,
 	},
 });

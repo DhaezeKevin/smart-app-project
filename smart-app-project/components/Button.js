@@ -63,4 +63,17 @@ export const ImageButton = (props) => {
 	);
 };
 
+export const ColorButton = (props) => {
+	return (
+		<TouchableOpacity
+			style={[
+				buttonStyle.colorButton,
+				Shadow.Shadow,
+				{ backgroundColor: props.color },
+			]}
+			onPress={props.onPress}
+		></TouchableOpacity>
+	);
+};
+
 export default DefaultButton;

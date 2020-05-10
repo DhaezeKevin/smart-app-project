@@ -3,7 +3,6 @@ import { Text, View, Image, StatusBar, TextInput } from 'react-native';
 import { SearchBar, Icon } from 'react-native-elements';
 
 //Import stylesheets
-import Flex from '../styles/Flex';
 import Container from '../styles/Container';
 import FontStyles from '../styles/FontStyles';
 import Border from '../styles/Border';
@@ -29,6 +28,11 @@ const DetailsList = ({ route, navigation }) => {
 	const bossListRender = bossList.map(function (bossList) {
 		return (
 			<Card
+				onPress={() =>
+					navigation.navigate('Draw', {
+						boss: bossList,
+					})
+				}
 				name={bossList.name}
 				level={bossList.level}
 				key={bossList.name}

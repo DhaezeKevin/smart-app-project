@@ -24,6 +24,7 @@ import RegisterScreen from './screens/Register';
 import HomeScreen from './screens/Home';
 import MasterListScreen from './screens/MasterList';
 import DetailsListScreen from './screens/DetailsList';
+import DrawScreen from './screens/Draw';
 
 //Import font
 import * as Font from 'expo-font';
@@ -44,19 +45,6 @@ export default function App() {
 	if (!firebase.apps.length) {
 		firebase.initializeApp(firebaseConfig);
 		var db = firebase.firestore();
-
-		// db.collection('users')
-		// 	.add({
-		// 		first: 'Ada',
-		// 		last: 'Lovelace',
-		// 		born: 1815,
-		// 	})
-		// 	.then(function (docRef) {
-		// 		console.log('Document written with ID: ', docRef.id);
-		// 	})
-		// 	.catch(function (error) {
-		// 		console.error('Error adding document: ', error);
-		// 	});
 	}
 
 	//When font is loaded
@@ -91,6 +79,7 @@ export default function App() {
 						name="DetailsList"
 						component={DetailsListScreen}
 					/>
+					<Stack.Screen name="Draw" component={DrawScreen} />
 				</Stack.Navigator>
 			</NavigationContainer>
 		);

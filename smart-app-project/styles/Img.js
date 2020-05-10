@@ -12,6 +12,9 @@ export default StyleSheet.create({
 		right: 0,
 		bottom: 0,
 	},
+	bgImageDraw: {
+		opacity: 1,
+	},
 	logo: {
 		width: '100%',
 		height: 158,
