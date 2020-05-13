@@ -6,6 +6,7 @@ import { captureRef } from 'react-native-view-shot';
 import * as MediaLibrary from 'expo-media-library';
 //Expo permission API
 import * as Permissions from 'expo-permissions';
+
 import React, { useEffect, useState } from 'react';
 import {
 	View,
@@ -13,10 +14,13 @@ import {
 	ImageBackground,
 	StatusBar,
 	TouchableOpacity,
+	Animated,
 } from 'react-native';
+import { Easing } from 'react-native-reanimated';
 
 //Import Components
 import DefaultButton, { ColorButton } from '../components/Button';
+import Flashmessage from '../components/Flashmessage';
 
 //Import stylesheets
 import FontStyles from '../styles/FontStyles';
@@ -31,6 +35,11 @@ global.Image = undefined;
 const Draw = ({ route }) => {
 	const [strokeColor, setstrokeColor] = useState(0x578fca);
 	const [isSketchClearing, setIsSketchClearing] = useState(false);
+	const [imageSuccess, setimageSuccess] = useState(false);
+	const [imageError, setimageError] = useState(false);
+	//Animation state management
+	const [fadeAnim] = useState(new Animated.Value(0));
+	const [transformXAnim] = useState(new Animated.Value(0));
 
 	//Route params
 	const { boss } = route.params;
@@ -42,12 +51,42 @@ const Draw = ({ route }) => {
 			const drawing = await captureRef(_container, {
 				format: 'png',
 			});
-			console.log(drawing);
 
 			//Save it to your phone
-			MediaLibrary.saveToLibraryAsync(drawing);
+			MediaLibrary.saveToLibraryAsync(drawing)
+				.then(function () {
+					//Saved the image correctly
+					console.log('Succesfully saved the image!');
+					setimageSuccess(true);
+
+					//Success animation
+					Animated.sequence([
+						Animated.parallel([
+							Animated.timing(fadeAnim, {
+								toValue: 1,
+								duration: 400,
+							}),
+							Animated.timing(transformXAnim, {
+								toValue: 1,
+								duration: 400,
+							}),
+						]),
+						Animated.delay(2000),
+						Animated.timing(transformXAnim, {
+							toValue: 0,
+							duration: 400,
+							easing: Easing.in(),
+						}),
+					]).start();
+				})
+				.catch(function (error) {
+					//There was and error
+					console.log(error);
+					setimageError(true);
+				});
 		} catch (error) {
 			console.log('This is the error' + error);
+			setimageError(true);
 		}
 	};
 
@@ -151,6 +190,21 @@ const Draw = ({ route }) => {
 					takePicture();
 				}}
 			/>
+			{imageSuccess && (
+				<Flashmessage
+					Text="Saved to phone!"
+					fadeAnimation={fadeAnim}
+					transformAnimation={transformXAnim}
+				/>
+			)}
+			{imageError && (
+				<Flashmessage
+					Text="An error occurred!"
+					fadeAnimation={fadeAnim}
+					transformAnimation={transformXAnim}
+					errorStyle={true}
+				/>
+			)}
 		</View>
 	);
 };

@@ -11,9 +11,10 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/wow-classic-logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#232931",
+      "barStyle": "light-content"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

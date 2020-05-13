@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05c43d73-419b-4ccc-93b6-f4e9b9e42f98" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../Assets/Dungeons/rfc/Bosses/81092.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assets/Dungeons/rfc/wp4410737-chat-wallpapers.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assets/Dungeons/wp4410775-chat-wallpapers.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/Raids/wp4587379-wow-classic-wallpapers.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/Raids/wp4602657-wow-classic-dungeon-wallpapers.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Design/Smart-App-design.xd" beforeDir="false" afterPath="$PROJECT_DIR$/../Design/Smart-App-design.xd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Card.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/Card.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/DetailsList.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/DetailsList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/MasterList.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/MasterList.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,7 +21,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="269" />
     <option name="y" value="58" />
     <option name="width" value="1400" />
@@ -29,6 +33,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -40,8 +46,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -75,7 +79,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.32982087" />

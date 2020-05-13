@@ -1,12 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-	Text,
-	View,
-	ImageBackground,
-	Image,
-	StatusBar,
-	TextInput,
-} from 'react-native';
+import { Text, View, StatusBar } from 'react-native';
 
 //Import stylesheets
 import Flex from '../styles/Flex';
@@ -15,7 +8,7 @@ import FontStyles from '../styles/FontStyles';
 import Border from '../styles/Border';
 
 //Components
-import { ImageButton } from '../components/Button';
+import { ImageButton, ErrorButton } from '../components/Button';
 
 //Import firebase
 import * as firebase from 'firebase';
@@ -24,11 +17,25 @@ import 'firebase/firestore';
 const Home = ({ navigation }) => {
 	const currentUser = firebase.auth().currentUser;
 
+	const logoutFunction = () => {
+		firebase
+			.auth()
+			.signOut()
+			.then(function () {
+				// Sign-out successful.
+				console.log('Logout succesful');
+			})
+			.catch(function (error) {
+				// An error happened.
+				console.log('There was an error');
+			});
+	};
+
 	return (
 		<View style={[Container.Container, Container.ContainerDark]}>
 			<StatusBar barStyle="light-content" />
 			<View style={[Flex.flexOne]}>
-				<View style={Flex.flexOne}>
+				<View style={[Flex.flexDirectionRow, Flex.flexJustifyBetween]}>
 					<Text
 						style={[
 							FontStyles.title,
@@ -41,6 +48,13 @@ const Home = ({ navigation }) => {
 							{currentUser.email}
 						</Text>
 					</Text>
+					<ErrorButton
+						text="Sign out"
+						onPress={() => {
+							logoutFunction();
+							navigation.navigate('Login');
+						}}
+					/>
 				</View>
 				<View style={[Flex.flexTwo, Flex.flexJustifyEnd]}>
 					<Text style={[FontStyles.title, FontStyles.titleBig]}>

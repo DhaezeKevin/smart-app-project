@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { AppLoading } from 'expo';
 import { decode, encode } from 'base-64';
 
 if (!global.btoa) {
@@ -54,16 +55,20 @@ export default function App() {
 			AlegreyaSansMedium: require('./assets/Fonts/AlegreyaSans-Medium.ttf'),
 			AlegreyaSansBold: require('./assets/Fonts/AlegreyaSans-Bold.ttf'),
 		});
-
-		setfontLoaded(true);
 	};
 
-	//If component is loaded
-	useEffect(() => {
-		loadedFont();
-	}, []);
-
-	if (fontLoaded) {
+	//Waiting for the font to load
+	if (!fontLoaded) {
+		return (
+			<AppLoading
+				startAsync={loadedFont}
+				onFinish={() => {
+					setfontLoaded(true);
+				}}
+				onError={console.warn}
+			/>
+		);
+	} else {
 		return (
 			<NavigationContainer>
 				<Stack.Navigator headerMode="none">
@@ -82,13 +87,6 @@ export default function App() {
 					<Stack.Screen name="Draw" component={DrawScreen} />
 				</Stack.Navigator>
 			</NavigationContainer>
-		);
-	} else {
-		//Show loading screen
-		return (
-			<View>
-				<Text>Waiting for font</Text>
-			</View>
 		);
 	}
 }

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StatusBar } from 'react-native';
-import { SearchBar, Icon } from 'react-native-elements';
+// import { SearchBar, Icon } from 'react-native-elements';
 
 //Import stylesheets
 import Flex from '../styles/Flex';
 import Container from '../styles/Container';
 import FontStyles from '../styles/FontStyles';
 import Border from '../styles/Border';
-import SearchBarStyle from '../styles/SearchBarStyle';
+// import SearchBarStyle from '../styles/SearchBarStyle';
 import Colors from '../styles/Colors';
 import Shadow from '../styles/Shadow';
 
@@ -18,7 +18,7 @@ import { firestore } from 'firebase';
 
 const MasterList = ({ route, navigation }) => {
 	//State management
-	const [searchBarValue, setSearchBarValue] = useState('');
+	// const [searchBarValue, setSearchBarValue] = useState('');
 	const [dungeonRaidList, setdungeonRaidList] = useState([]);
 
 	//Route params
@@ -41,9 +41,9 @@ const MasterList = ({ route, navigation }) => {
 		);
 	});
 
-	const updateSearch = (search) => {
-		setSearchBarValue(search);
-	};
+	// const updateSearch = (search) => {
+	// 	setSearchBarValue(search);
+	// };
 
 	const ref = firestore().collection(difficultyType);
 
@@ -62,7 +62,6 @@ const MasterList = ({ route, navigation }) => {
 	//If component is loaded
 	useEffect(() => {
 		getData();
-		console.log(difficultyType);
 	}, []);
 
 	return (
@@ -78,7 +77,7 @@ const MasterList = ({ route, navigation }) => {
 				>
 					{JSON.parse(JSON.stringify(difficultyType))}
 				</Text>
-				<SearchBar
+				{/* <SearchBar
 					placeholder="Type Here..."
 					onChangeText={updateSearch}
 					value={searchBarValue}
@@ -92,7 +91,7 @@ const MasterList = ({ route, navigation }) => {
 					searchIcon={
 						<Icon name="search" color={Colors.light} size={20} />
 					}
-				/>
+				/> */}
 			</View>
 			<ScrollView>{dungeonRaidListRender}</ScrollView>
 		</View>

@@ -18,14 +18,25 @@ const Flashmessage = (props) => {
 						outputRange: ['-55%', '-1%'],
 					}),
 				},
+				props.errorStyle && FlashmessageStyle.FlashmessageError,
 			]}
 		>
-			<Icon
-				name="check-circle-outline"
-				color={Colors.light}
-				size={35}
-				style={FlashmessageStyle.FlashmessageIcon}
-			/>
+			{props.errorStyle ? (
+				<Icon
+					name="exclamation"
+					color={Colors.light}
+					size={35}
+					style={FlashmessageStyle.FlashmessageIcon}
+				/>
+			) : (
+				<Icon
+					name="check-circle-outline"
+					color={Colors.light}
+					size={35}
+					style={FlashmessageStyle.FlashmessageIcon}
+				/>
+			)}
+
 			<Text style={FlashmessageStyle.FlashmessageText}>{props.Text}</Text>
 		</Animated.View>
 	);

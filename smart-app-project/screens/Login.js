@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Svg, { Polygon } from 'react-native-svg';
-import { Easing } from 'react-native-reanimated';
+import { AppLoading } from 'expo';
 
 //Import expo fonts
 import * as Font from 'expo-font';
@@ -64,14 +64,7 @@ const Login = ({ navigation }) => {
 		await Font.loadAsync({
 			MaterialCommunityIconsFont: require('@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf'),
 		});
-
-		seticonLoaded(true);
 	};
-
-	//If icons are loaded
-	useEffect(() => {
-		loadedIcon();
-	}, []);
 
 	//LoginFunction
 	const loginAccount = async () => {
@@ -267,9 +260,13 @@ const Login = ({ navigation }) => {
 		);
 	} else {
 		return (
-			<View>
-				<Text>Waiting for icons</Text>
-			</View>
+			<AppLoading
+				startAsync={loadedIcon}
+				onFinish={() => {
+					seticonLoaded(true);
+				}}
+				onError={console.warn}
+			/>
 		);
 	}
 };

@@ -16,6 +16,9 @@ export default StyleSheet.create({
 		paddingLeft: 10,
 		paddingRight: 10,
 	},
+	FlashmessageError: {
+		backgroundColor: colors.error,
+	},
 	FlashmessageText: {
 		color: colors.light,
 		paddingLeft: 7,

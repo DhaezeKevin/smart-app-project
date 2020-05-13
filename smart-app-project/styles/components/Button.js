@@ -14,6 +14,10 @@ export default StyleSheet.create({
 	fullButton: {
 		backgroundColor: colors.themeColor,
 	},
+	smallButton: {
+		height: 30,
+		width: 70,
+	},
 	invertedButton: {
 		backgroundColor: 'transparent',
 		borderStyle: 'solid',
@@ -29,6 +33,12 @@ export default StyleSheet.create({
 	},
 	buttonTextInverted: {
 		color: colors.themeColor,
+	},
+	buttonTextError: {
+		fontSize: 16,
+	},
+	buttonError: {
+		backgroundColor: colors.error,
 	},
 
 	//IMAGE BUTTON

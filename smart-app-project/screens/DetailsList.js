@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, Image, StatusBar, TextInput } from 'react-native';
-import { SearchBar, Icon } from 'react-native-elements';
+// import { SearchBar, Icon } from 'react-native-elements';
 
 //Import stylesheets
 import Container from '../styles/Container';
 import FontStyles from '../styles/FontStyles';
 import Border from '../styles/Border';
-import SearchBarStyle from '../styles/SearchBarStyle';
+// import SearchBarStyle from '../styles/SearchBarStyle';
 import Colors from '../styles/Colors';
 import Shadow from '../styles/Shadow';
 
@@ -17,7 +17,7 @@ import { firestore } from 'firebase';
 
 const DetailsList = ({ route, navigation }) => {
 	//State management
-	const [searchBarValue, setSearchBarValue] = useState('');
+	// const [searchBarValue, setSearchBarValue] = useState('');
 	const [bossList, setbossList] = useState([]);
 
 	//Route params
@@ -41,9 +41,9 @@ const DetailsList = ({ route, navigation }) => {
 		);
 	});
 
-	const updateSearch = (search) => {
-		setSearchBarValue(search);
-	};
+	// const updateSearch = (search) => {
+	// 	setSearchBarValue(search);
+	// };
 
 	const ref = firestore()
 		.collection(difficulty)
@@ -78,7 +78,7 @@ const DetailsList = ({ route, navigation }) => {
 				>
 					Bosses for {dungeonRaid.name}
 				</Text>
-				<SearchBar
+				{/* <SearchBar
 					placeholder="Type Here..."
 					onChangeText={updateSearch}
 					value={searchBarValue}
@@ -92,7 +92,7 @@ const DetailsList = ({ route, navigation }) => {
 					searchIcon={
 						<Icon name="search" color={Colors.light} size={20} />
 					}
-				/>
+				/> */}
 			</View>
 			<ScrollView>{bossListRender}</ScrollView>
 		</View>

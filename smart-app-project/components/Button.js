@@ -76,4 +76,27 @@ export const ColorButton = (props) => {
 	);
 };
 
+export const ErrorButton = (props) => {
+	return (
+		<TouchableOpacity
+			style={[
+				buttonStyle.defaultButton,
+				buttonStyle.buttonError,
+				buttonStyle.smallButton,
+			]}
+			onPress={props.onPress}
+		>
+			<Text
+				style={[
+					buttonStyle.buttonText,
+					buttonStyle.buttonTextFull,
+					buttonStyle.buttonTextError,
+				]}
+			>
+				{props.text}
+			</Text>
+		</TouchableOpacity>
+	);
+};
+
 export default DefaultButton;
